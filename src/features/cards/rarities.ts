@@ -8,6 +8,8 @@ export type Rarity = {
   description: string;
   /** Reflet holographique animé. */
   holo: boolean;
+  /** Révélation spectaculaire à l'ouverture d'un booster. */
+  highlight: boolean;
 };
 
 /** Raretés de la plus commune à la plus rare. */
@@ -18,6 +20,7 @@ export const RARITIES: readonly Rarity[] = [
     short: "C",
     description: "Cadre acier brossé, sans effet.",
     holo: false,
+    highlight: false,
   },
   {
     id: "uncommon",
@@ -25,6 +28,7 @@ export const RARITIES: readonly Rarity[] = [
     short: "PC",
     description: "Cadre vert gazon, liseré lumineux.",
     holo: false,
+    highlight: false,
   },
   {
     id: "rare",
@@ -32,6 +36,7 @@ export const RARITIES: readonly Rarity[] = [
     short: "R",
     description: "Cadre bleu nuit, halo externe.",
     holo: false,
+    highlight: false,
   },
   {
     id: "epic",
@@ -39,6 +44,7 @@ export const RARITIES: readonly Rarity[] = [
     short: "É",
     description: "Cadre violet, premier reflet holographique.",
     holo: true,
+    highlight: false,
   },
   {
     id: "legendary",
@@ -46,6 +52,7 @@ export const RARITIES: readonly Rarity[] = [
     short: "L",
     description: "Cadre or, holo et forte lueur.",
     holo: true,
+    highlight: true,
   },
   {
     id: "mythic",
@@ -53,12 +60,18 @@ export const RARITIES: readonly Rarity[] = [
     short: "M",
     description: "Cadre prismatique animé, holo intégral.",
     holo: true,
+    highlight: true,
   },
 ];
 
 export const RARITY_BY_ID = Object.fromEntries(
   RARITIES.map((rarity) => [rarity.id, rarity]),
 ) as Record<RarityId, Rarity>;
+
+/** Rang de la rareté : 0 pour Commune, 5 pour Mythique. */
+export function rarityIndex(id: RarityId): number {
+  return RARITIES.findIndex((rarity) => rarity.id === id);
+}
 
 export const STAT_LABELS: Record<keyof PlayerStats, string> = {
   pace: "VIT",

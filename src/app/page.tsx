@@ -44,13 +44,21 @@ export default function Home() {
           <p className="mt-6 max-w-xl text-base leading-relaxed text-mist sm:text-lg">
             {siteConfig.description}
           </p>
-          <Link
-            href="/cartes"
-            className="font-display mt-8 inline-flex items-center gap-2 rounded-xl bg-volt px-6 py-3 text-lg font-bold uppercase italic text-pitch-950 shadow-volt transition-transform hover:-translate-y-0.5"
-          >
-            Découvrir les cartes
-            <span aria-hidden="true">→</span>
-          </Link>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/booster"
+              className="font-display inline-flex items-center gap-2 rounded-xl bg-volt px-6 py-3 text-lg font-bold uppercase italic text-pitch-950 shadow-volt transition-transform hover:-translate-y-0.5"
+            >
+              Ouvrir un booster
+              <span aria-hidden="true">→</span>
+            </Link>
+            <Link
+              href="/cartes"
+              className="font-display inline-flex items-center gap-2 rounded-xl border border-line-strong px-6 py-3 text-lg font-bold uppercase italic text-chalk transition-colors hover:border-volt hover:text-volt"
+            >
+              Voir les cartes
+            </Link>
+          </div>
         </section>
 
         <div className="mx-auto w-full max-w-[260px] rotate-3 sm:max-w-[300px]">

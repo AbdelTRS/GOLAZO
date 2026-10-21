@@ -1,13 +1,12 @@
-import type { PlayerCard } from "./types";
+import type { CardDraft } from "./types";
 
 /**
- * Joueurs et clubs entièrement fictifs, pour le prototype.
+ * Joueurs vitrines, un par rareté, entièrement fictifs.
  * Toute ressemblance avec des personnes réelles serait fortuite.
  */
-export const MOCK_CARDS: readonly PlayerCard[] = [
+export const SHOWCASE_CARDS: readonly CardDraft[] = [
   {
     id: "nils-ardoin",
-    number: 412,
     name: "Nils Ardoin",
     position: "DC",
     nation: "FRA",
@@ -18,7 +17,6 @@ export const MOCK_CARDS: readonly PlayerCard[] = [
   },
   {
     id: "kofi-belmar",
-    number: 388,
     name: "Kofi Belmar",
     position: "MC",
     nation: "GHA",
@@ -29,7 +27,6 @@ export const MOCK_CARDS: readonly PlayerCard[] = [
   },
   {
     id: "teo-valcarcel",
-    number: 301,
     name: "Teo Valcárcel",
     position: "AD",
     nation: "ESP",
@@ -40,7 +37,6 @@ export const MOCK_CARDS: readonly PlayerCard[] = [
   },
   {
     id: "yanis-korvel",
-    number: 142,
     name: "Yanis Korvel",
     position: "MOC",
     nation: "BEL",
@@ -51,7 +47,6 @@ export const MOCK_CARDS: readonly PlayerCard[] = [
   },
   {
     id: "rafael-ostend",
-    number: 37,
     name: "Rafael Ostend",
     position: "GB",
     nation: "BRA",
@@ -62,7 +57,6 @@ export const MOCK_CARDS: readonly PlayerCard[] = [
   },
   {
     id: "mateus-lindqvar",
-    number: 1,
     name: "Mateus Lindqvar",
     position: "BU",
     nation: "POR",

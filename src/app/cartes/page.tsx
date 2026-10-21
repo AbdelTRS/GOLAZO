@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PlayerCard } from "@/components/cards/PlayerCard";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { MOCK_CARDS } from "@/features/cards/mock-cards";
+import { SHOWCASE } from "@/features/cards/catalog";
 import { RARITY_BY_ID } from "@/features/cards/rarities";
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function CardsPage() {
         </section>
 
         <ul className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-8 lg:gap-x-12">
-          {MOCK_CARDS.map((card) => {
+          {SHOWCASE.map((card) => {
             const rarity = RARITY_BY_ID[card.rarity];
             return (
               <li key={card.id} className="mx-auto w-full max-w-[300px]">

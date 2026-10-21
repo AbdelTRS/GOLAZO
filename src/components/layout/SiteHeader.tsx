@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 
-const navLinks = [{ href: "/cartes", label: "Cartes" }];
+const navLinks = [
+  { href: "/booster", label: "Booster" },
+  { href: "/cartes", label: "Cartes" },
+];
 
 export function SiteHeader() {
   return (

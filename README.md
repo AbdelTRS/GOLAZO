@@ -13,6 +13,7 @@ npm install        # installer les dépendances
 npm run dev        # serveur de développement → http://localhost:3000
 npm run typecheck  # génération des types Next + vérification TypeScript
 npm run lint       # ESLint
+npm test           # tests unitaires (Vitest)
 npm run build      # build de production
 npm run start      # lancer le build de production
 ```
@@ -22,8 +23,10 @@ npm run start      # lancer le build de production
 ```
 src/
   app/          routes (App Router), layout racine, styles globaux
-  components/   composants React réutilisables (brand/, cards/…)
+  components/   composants React réutilisables (brand/, cards/, boosters/…)
   config/       configuration statique de l'application (nom, textes)
+  features/     logique métier sans UI (cartes, catalogue, tirage des boosters)
+  lib/          utilitaires génériques (aléatoire…)
 public/         fichiers statiques
 ```
 

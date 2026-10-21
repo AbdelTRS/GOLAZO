@@ -1,0 +1,159 @@
+/*
+ * Booster scellé GOLAZO : une bande à déchirer en haut, le corps du sachet en dessous.
+ * Les bords dentelés sont obtenus par un masque de demi-cercles répétés.
+ */
+
+.pack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(240px, 62vw);
+  aspect-ratio: 5 / 8;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: grab;
+  touch-action: none;
+  animation: float 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 24px 30px rgb(0 0 0 / 0.7)) drop-shadow(0 0 28px rgb(57 255 136 / 0.25));
+}
+
+.pack:focus-visible {
+  outline: 2px solid var(--color-volt);
+  outline-offset: 8px;
+  border-radius: 12px;
+}
+
+.pack[data-tearing="true"] {
+  animation: none;
+  cursor: default;
+}
+
+.strip,
+.body {
+  display: block;
+  background:
+    repeating-linear-gradient(
+      -55deg,
+      transparent 0 22px,
+      rgb(57 255 136 / 0.08) 22px 24px
+    ),
+    linear-gradient(160deg, #20252c, #0b0d10 70%);
+}
+
+.strip {
+  position: relative;
+  height: 13%;
+  border-bottom: 1px dashed rgb(255 255 255 / 0.25);
+  -webkit-mask: radial-gradient(circle at 50% 0, transparent 3px, #000 3.5px) top / 10px 100% repeat-x;
+  mask: radial-gradient(circle at 50% 0, transparent 3px, #000 3.5px) top / 10px 100% repeat-x;
+}
+
+.body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow: hidden;
+  -webkit-mask: radial-gradient(circle at 50% 100%, transparent 3px, #000 3.5px) bottom / 10px 100% repeat-x;
+  mask: radial-gradient(circle at 50% 100%, transparent 3px, #000 3.5px) bottom / 10px 100% repeat-x;
+}
+
+/* Reflet métallisé qui balaie le sachet */
+.foil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgb(255 255 255 / 0.14) 48%,
+    rgb(57 255 136 / 0.18) 52%,
+    transparent 65%
+  );
+  background-size: 300% 100%;
+  animation: sweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.emblem {
+  display: grid;
+  place-items: center;
+  width: 38%;
+  aspect-ratio: 1;
+  border: 2px solid var(--color-volt);
+  border-radius: 22%;
+  rotate: 45deg;
+  box-shadow: var(--shadow-volt);
+}
+
+.emblem span {
+  rotate: -45deg;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 12vw, 3.5rem);
+  font-weight: 800;
+  font-style: italic;
+  color: var(--color-volt);
+}
+
+.title {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-chalk);
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-mist);
+}
+
+.pack[data-tearing="true"] .strip {
+  animation: strip-off 450ms ease-in forwards;
+}
+
+.pack[data-tearing="true"] .body {
+  animation: body-drop 650ms 250ms ease-in forwards;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-10px) rotate(-1.5deg);
+  }
+}
+
+@keyframes sweep {
+  0% {
+    background-position: 100% 0;
+  }
+  60%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+@keyframes strip-off {
+  to {
+    transform: translate(70%, -140%) rotate(22deg);
+    opacity: 0;
+  }
+}
+
+@keyframes body-drop {
+  30% {
+    transform: translateY(-4%) scale(1.03);
+  }
+  100% {
+    transform: translateY(45%) scale(0.9);
+    opacity: 0;
+  }
+}

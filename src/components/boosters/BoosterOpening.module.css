@@ -1,0 +1,176 @@
+.stage {
+  display: flex;
+  min-height: 520px;
+  margin-top: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.hint {
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  color: var(--color-mist);
+}
+
+/* Main de 5 cartes : 3 + 2 sur mobile, une ligne à partir de la tablette */
+.hand {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 12px;
+}
+
+.slot {
+  --burst: transparent;
+  position: relative;
+  isolation: isolate;
+  width: calc((100% - 2 * 12px) / 3);
+  max-width: 210px;
+  animation: deal-in 500ms calc(var(--i) * 90ms) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (min-width: 768px) {
+  .hand {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+
+  .slot {
+    width: calc((100% - 4 * 16px) / 5);
+  }
+}
+
+.slot[data-rarity="legendary"] {
+  --burst: rgb(255 207 74 / 0.9);
+}
+
+.slot[data-rarity="mythic"] {
+  --burst: rgb(57 255 136 / 0.95);
+}
+
+/* Explosion lumineuse derrière une Légendaire ou une Mythique révélée */
+.slot[data-highlight="true"]::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--burst) 0%, transparent 65%);
+  animation: burst 1.4s ease-out forwards;
+  pointer-events: none;
+}
+
+.flip {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.flip:disabled {
+  cursor: default;
+}
+
+.flip:focus-visible {
+  outline: 2px solid var(--color-volt);
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+
+.flipInner {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.flip:not(:disabled):hover .flipInner {
+  transform: translateY(-6px) rotateY(10deg);
+}
+
+.flip[data-flipped="true"] .flipInner {
+  transform: rotateY(180deg);
+}
+
+.face {
+  grid-area: 1 / 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.front {
+  transform: rotateY(180deg);
+}
+
+/* Flash plein écran à la révélation d'une grosse carte */
+.flash {
+  --burst: rgb(255 207 74 / 0.6);
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: radial-gradient(circle at 50% 50%, var(--burst), transparent 70%);
+  pointer-events: none;
+  animation: flash 900ms ease-out forwards;
+}
+
+.flash[data-rarity="mythic"] {
+  --burst: rgb(57 255 136 / 0.65);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.summary {
+  width: 100%;
+  max-width: 560px;
+  animation: fade-up 450ms ease-out both;
+}
+
+@keyframes deal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-48px) scale(0.85);
+  }
+}
+
+@keyframes burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}

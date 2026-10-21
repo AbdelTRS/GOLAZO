@@ -41,3 +41,6 @@ export type PlayerCard = {
   rarity: RarityId;
   stats: PlayerStats;
 };
+
+/** Carte avant attribution de son numéro de catalogue. */
+export type CardDraft = Omit<PlayerCard, "number">;
