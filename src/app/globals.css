@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/*
+ * GOLAZO — design tokens.
+ * Les couleurs sont déclarées une seule fois ici et exposées à Tailwind via @theme
+ * (ex. bg-pitch-950, text-volt, border-line).
+ */
+@theme {
+  /* Fonds : du noir profond à l'anthracite */
+  --color-pitch-950: #050607;
+  --color-pitch-900: #0a0c0e;
+  --color-pitch-800: #111418;
+  --color-pitch-700: #1a1e24;
+  --color-pitch-600: #262b33;
+
+  /* Accent principal : vert électrique */
+  --color-volt: #39ff88;
+  --color-volt-soft: #22d36d;
+  --color-volt-deep: #0f6b3a;
+
+  /* Texte */
+  --color-chalk: #f5f7f6;
+  --color-mist: #a3aab3;
+  --color-fog: #6b737d;
+
+  /* Bordures discrètes */
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+
+  /* Typographies (variables injectées par next/font dans layout.tsx) */
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --shadow-volt: 0 0 0 1px rgb(57 255 136 / 0.35), 0 0 32px -4px rgb(57 255 136 / 0.45);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background-color: var(--color-pitch-950);
+}
+
+body {
+  background-color: var(--color-pitch-950);
+  color: var(--color-chalk);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-volt);
+  color: var(--color-pitch-950);
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+/* Lignes de terrain en fond, utilisées par la page d'accueil */
+@utility bg-pitch-lines {
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 0 139px, var(--color-line) 140px 141px, transparent 142px),
+    linear-gradient(to right, transparent calc(50% - 0.5px), var(--color-line) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
