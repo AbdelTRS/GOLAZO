@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { BoosterOpening } from "@/components/boosters/BoosterOpening";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { getSessionUser } from "@/features/auth/session";
 
 export const metadata: Metadata = {
   title: "Booster",
@@ -19,15 +21,23 @@ export default function BoosterPage() {
       <main className="relative z-10 mx-auto w-full max-w-6xl flex-1 px-4 pb-16 sm:px-6">
         <section className="pt-6 text-center sm:pt-10">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-volt">
-            Prototype · tirage libre
+            Prototype · booster standard
           </p>
           <h1 className="font-display mt-2 text-5xl font-extrabold uppercase italic sm:text-6xl">
             Ouvre ton booster
           </h1>
         </section>
 
-        <BoosterOpening />
+        {/* La session est lue à la requête : cette zone arrive en streaming. */}
+        <Suspense fallback={<div className="mt-10 min-h-[520px]" aria-busy="true" />}>
+          <BoosterSection />
+        </Suspense>
       </main>
     </div>
   );
+}
+
+async function BoosterSection() {
+  const user = await getSessionUser();
+  return <BoosterOpening signedIn={user !== null} />;
 }
