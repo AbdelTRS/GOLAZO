@@ -1,5 +1,6 @@
-import { Logo } from "@/components/brand/Logo";
+import Link from "next/link";
 import { CardBack } from "@/components/cards/CardBack";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 import { siteConfig } from "@/config/site";
 
 const pillars = [
@@ -26,12 +27,7 @@ export default function Home() {
         className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[900px] -translate-x-1/2 rounded-full bg-volt/10 blur-3xl"
       />
 
-      <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
-        <Logo />
-        <span className="rounded-full border border-line px-3 py-1 text-xs font-medium uppercase tracking-widest text-mist">
-          En développement
-        </span>
-      </header>
+      <SiteHeader />
 
       <main className="relative z-10 mx-auto grid w-full max-w-6xl flex-1 items-center gap-12 px-4 py-10 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:py-16">
         <section>
@@ -48,6 +44,13 @@ export default function Home() {
           <p className="mt-6 max-w-xl text-base leading-relaxed text-mist sm:text-lg">
             {siteConfig.description}
           </p>
+          <Link
+            href="/cartes"
+            className="font-display mt-8 inline-flex items-center gap-2 rounded-xl bg-volt px-6 py-3 text-lg font-bold uppercase italic text-pitch-950 shadow-volt transition-transform hover:-translate-y-0.5"
+          >
+            Découvrir les cartes
+            <span aria-hidden="true">→</span>
+          </Link>
         </section>
 
         <div className="mx-auto w-full max-w-[260px] rotate-3 sm:max-w-[300px]">
