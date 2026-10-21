@@ -18,6 +18,16 @@ npm run build      # build de production
 npm run start      # lancer le build de production
 ```
 
+## Base de données (Neon)
+
+Le projet est lié à Neon (`neon.ts`, `.neon`). Variables d'environnement dans `.env.local` (voir `.env.example`).
+
+```bash
+neon env pull      # récupère DATABASE_URL / DATABASE_URL_UNPOOLED de la branche liée
+npm run db:migrate # applique les migrations (connexion directe, non poolée)
+npm run db:generate # génère une migration après modification de src/db/schema.ts
+```
+
 ## Structure
 
 ```

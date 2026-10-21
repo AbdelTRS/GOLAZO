@@ -1,18 +1,30 @@
 import "server-only";
+import { parseEnv } from "@neon/env";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+import neonConfig from "../../neon";
 import * as schema from "./schema";
 
 /*
- * Client PostgreSQL (Neon). La connexion n'est ouverte qu'à la première requête :
- * le build fonctionne donc même sans DATABASE_URL.
- * `prepare: false` est requis par le pooler de connexions de Neon.
+ * Client PostgreSQL Neon (driver postgres.js, runtime Node.js).
+ * - URL poolée (DATABASE_URL, pooler PgBouncer) pour le trafic de l'application ;
+ *   les migrations utilisent la connexion directe (voir drizzle.config.ts).
+ * - `prepare: false` : le pooler en mode transaction ne gère pas les requêtes préparées.
+ * parseEnv valide la variable au démarrage avec un message clair si elle manque.
  */
 
-const globalForDb = globalThis as unknown as { pgClient?: ReturnType<typeof postgres> };
+const { postgres: env } = parseEnv(neonConfig, ["DATABASE_URL"]);
 
-// En développement, on réutilise le client entre les rechargements à chaud.
-const client = globalForDb.pgClient ?? postgres(process.env.DATABASE_URL ?? "", { prepare: false });
-if (process.env.NODE_ENV !== "production") globalForDb.pgClient = client;
+const globalForDb = globalThis as unknown as {
+  pg?: { url: string; client: ReturnType<typeof postgres> };
+};
+
+// En développement, on réutilise le client entre les rechargements à chaud,
+// tant que l'URL ne change pas (sinon un .env.local modifié serait ignoré).
+const client =
+  globalForDb.pg?.url === env.databaseUrl
+    ? globalForDb.pg.client
+    : postgres(env.databaseUrl, { prepare: false });
+if (process.env.NODE_ENV !== "production") globalForDb.pg = { url: env.databaseUrl, client };
 
 export const db = drizzle(client, { schema });
